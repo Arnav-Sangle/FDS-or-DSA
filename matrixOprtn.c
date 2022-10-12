@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-
 void getMatrix(int *a_ptr, int m, int n);
 void dispMatrix(int *a_ptr, int m, int n);
 void addMatrix(int *matA, int *matB, int m, int n);
-void multMatrix(int *matA, int *matB, int m, int n);
-void saddlePoint(int **arr, int m, int n);
+void multMatrix(int *matA, int *matB, int m, int n, int c);
+void saddlePoint(int m, int n, int arr[][n]);	//(int m, int n, arr[][n]) m & n must be declared/passed before 2D-array	
+
 
 
 
@@ -28,15 +28,14 @@ int main() {
 	if(m1 == m2 && n1 == n2) {
 		addMatrix((int *)matA, (int *)matB, m1, n1);				
 	}
-	
-	// if(n1 == m2) {
-	// 	multMatrix((int *)matA, (int *)matB, m1, n2);				//3x2 * 2x4 = 3x4		m1xn1 * m2xn2 
-	// }
 
-	// getMatrix(a_ptr, m, n);
-	// dispMatrix(a_ptr, m, n);
-	// saddlePoint((arr);			// void func(arr[m][n]) {}	 + 	 func(arr);		works but gives warning
-	
+	if(n1 == m2) {
+		multMatrix((int *)matA, (int *)matB, m1, n2, n1);				//3x2 * 2x4 = 3x4		m1xn1 * m2xn2 
+	}
+
+	getMatrix(a_ptr, m, n);
+	dispMatrix(a_ptr, m, n);
+	saddlePoint(m, n, arr);			//does Not work	  void func(arr[m][n]) {}  +  func(arr);
 	
 	return 0;
 }
@@ -78,9 +77,26 @@ void addMatrix(int *matA, int *matB, int m, int n) {
 		}
 		printf("\n");
 	}
+	printf("\n");
 }
 
-void saddlePoint(int **arr, int m, int n) {
+void multMatrix(int *matA, int *matB, int m, int n, int c) {	//each row of matrix-1 * single col of matrix-2 = Sum of all row-col-mult elements = single element of Result_matrix
+	printf("Matrix Multiplication: \n");	
+	int sum;
+	for(int i=0; i<m; i++) {	// c is common
+		for(int j=0; j<n; j++) {
+			sum = 0;			
+			for(int k=0; k<c; k++) {
+				sum += *(matA+((i*m)+k)) * *(matB+((k*m)+j)); 
+			}
+			printf("%d ", sum);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+void saddlePoint(int m, int n, int arr[][n]) {
 	int s[2][2];		//solution matrix 	stores location of min and max element
 	int max, min;
 	
