@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-// #include <bits/stdc++.h>
+
 
 void getArr(int *arr, int n);
 void putArr(int *arr, int n);
@@ -23,8 +23,6 @@ int main() {
 	int U[n1];
 	printf("Enter Data of Universal set U: ");
 	getArr(U, n1);
-	// printf("Disp U: ");
-	// putArr(U, n1);
 	printf("\n");
 	
 	int n2;
@@ -33,8 +31,6 @@ int main() {
 	int A[n2];
 	printf("Enter Data of set A: ");
 	getArr(A, n2);
-	// printf("Disp A: ");
-	// putArr(A, n2);
 	printf("\n");
 	
 	int n3;
@@ -43,11 +39,9 @@ int main() {
 	int B[n3];
 	printf("Enter Data of set B: ");
 	getArr(B, n3);
-	// printf("Disp B: ");
-	// putArr(B, n3);
 	printf("\n");
 	
-
+	
 	int choice;
 	do {
 		printf("MENU\n");
@@ -61,30 +55,21 @@ int main() {
 
 		int comb[50], c;
 		char set_name;
-		// int temp[50], t;
 		switch(choice) {
 			case 1:
 				combine_arr(A, B, n2, n3, comb);
 				c = n2+n3;
-				// printf("Combined arr: ");
-				// putArr(comb, c);
 				bubble_sort(comb, c);
-				// printf("Sorted arr: ");
-				// putArr(comb, c);
 				set_union(comb, c);
-				getchar(); getchar(); //printf("\n"); 
+				getchar(); getchar();
 				break;
 
 			case 2:
 				combine_arr(A, B, n2, n3, comb);
 				c = n2+n3;
-				// printf("Combined arr: ");
-				// putArr(comb, c);
 				bubble_sort(comb, c);
-				// printf("Sorted arr: ");
-				// putArr(comb, c);
 				set_intrsctn(comb, c);
-				getchar(); getchar(); //printf("\n"); 
+				getchar(); getchar();
 				break;
 
 			case 3:
@@ -94,28 +79,18 @@ int main() {
 				if(set_name == 'A') {
 					combine_arr(U, A, n1, n2, comb);
 					c = n1+n2;
-					// printf("Combined arr: ");
-					// putArr(comb, c);
 					bubble_sort(comb, c);
-					// printf("Sorted arr: ");
-					// putArr(comb, c);	
 					printf("~A = ");
 					set_cmplmnt(comb, c);
-					getchar(); getchar(); //printf("\n"); 
+					getchar(); getchar(); 
 				}
 				else {
 					combine_arr(U, B, n1, n3, comb);
 					c = n1+n3;
-					// printf("Combined arr: ");
-					// putArr(comb, c);
-
 					bubble_sort(comb, c);
-					// printf("Sorted arr: ");
-					// putArr(comb, c);
-
 					printf("~B = ");
 					set_cmplmnt(comb, c);
-					getchar(); getchar(); //printf("\n"); 
+					getchar(); getchar();
 				}
 				break;
 
@@ -140,14 +115,6 @@ int main() {
 void getArr(int *arr, int n) {
 	int count=0;
 	for(int i=0; i<n; i++) {
-
-		// count++;										//doesn't work as Run Time Error 
-		// printf("count=%d , n=%d\n", count, i);
-		// if(count>n) {
-		// 	printf("Array out of bounds!");
-		// 	break;
-		// }
-
 		scanf("%d", (arr+i));
 	}
 }
@@ -227,57 +194,3 @@ void set_cmplmnt(int *comb, int n) {
 	putArr(comb, count);
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// void set_cmplmnt(int *arr_U, int *arr_S, int n1, int n2) {
-// 	int *temp;
-// 	int n = n1+n2;
-// 	temp = (int *) malloc (n*sizeof(int));
-// 	combine_arr(arr_U, arr_S, n1, n2, temp);
-// 	bubble_sort(temp, n);
-// 	printf("comb arr: ");
-// 	putArr(temp, n);	printf("\n");
-
-
-// 	int k=0;
-// 	for(int i=0; i<n; i++) {
-// 		if(temp[i] == temp[i+1]) {
-// 			i++;
-// 		}
-// 		else {
-// 			temp[k] = temp[i];
-// 			k++;
-// 		}
-// 	}
-// 	n = k;
-// 	temp = (int *)realloc(temp, n*sizeof(int));
-
-		
-// 	// printf("n=%d, Cmplmnt arrA: ", n);
-// 	putArr(temp, n);
-
-// }
