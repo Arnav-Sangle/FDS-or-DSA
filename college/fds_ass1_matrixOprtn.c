@@ -1,0 +1,179 @@
+#include <stdio.h>
+
+void getMatrix(int *a_ptr, int m, int n);
+void dispMatrix(int *a_ptr, int m, int n);
+void addMatrix(int *matA, int *matB, int m, int n);
+void multMatrix(int *matA, int *matB, int m, int n, int c);
+void transpose(int ) 
+void saddlePoint(int m, int n, int arr[][n]);	//(int m, int n, arr[][n]) m & n must be declared/passed before 2D-array	
+
+
+
+int main() {
+	
+	int m1=3, n1=3;
+	int matA[m1][n1];
+	int m2=3, n2=3;
+	int matB[m2][n2];
+	int m3=3, n3=3;
+    int matC[m3][n3];
+	
+	int m=3, n=3;
+	int arr[m][n];	//for saddle point
+	int *a_ptr = &arr[0][0];
+
+
+	int choice, y;
+	do {
+		printf("\nMATRIX OPERATIONS\n");
+		printf("1. Additon\n");
+		printf("2. Multiplication\n");
+		printf("3. Transpose\n");
+		printf("4. Saddle point\n");
+		printf("0. EXIT\n");
+
+		printf("Enter your choice: ");
+		switch(choice) {
+			case 1:
+				if(m1 == m2 && n1 == n2) {
+					addMatrix((int *)matA, (int *)matB, m1, n1);				
+				}
+				else {
+					printf("Addition Not possible!");
+                }
+				break;
+			
+			case 2:
+                if(n1 == m2) {
+                    multMatrix((int *)matA, (int *)matB, m1, n2, n1);				//3x2 * 2x4 = 3x4		m1xn1 * m2xn2 
+	            }
+                else {
+					printf("Multiplication Not possible!");
+                }
+				break;
+
+            case 3:
+                transpose                
+				
+
+		}
+	}
+
+	getMatrix((int *)matA, m1, n1);		//type casting Double_ptr into Single_ptr
+	dispMatrix((int *)matA, m1, n1);
+
+	getMatrix((int *)matB, m2, n2);	
+	dispMatrix((int *)matB, m2, n2);	
+	
+
+	getMatrix(a_ptr, m, n);
+	dispMatrix(a_ptr, m, n);
+	saddlePoint(m, n, arr);			//does Not work	  void func(arr[m][n]) {}  +  func(arr);
+	
+	return 0;
+}
+
+
+
+
+
+void getMatrix(int *a_ptr, int m, int n) {
+	printf("Enter 3x3 matrix:\n");
+	for(int i=0; i<m; i++) {
+		printf("Row %d: ", i);
+		for(int j=0; j<3; j++) {		
+			scanf("%d", (a_ptr+((i*3)+j)) );
+		}
+	}
+	printf("\n");
+}
+
+void dispMatrix(int *a_ptr, int m, int n) {
+	printf("Matrix\n");
+	for(int i=0; i<3; i++) {	
+		for(int j=0; j<3; j++) {		
+			printf("%d ", *(a_ptr+((i*3)+j)) );	//if *p 	then (*(ptr+i)+j)
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+void addMatrix(int *matA, int *matB, int m, int n) {
+	printf("Matrix Addition: \n");
+	int sum;
+	for(int i=0; i<m; i++) {
+		sum = 0;		// initialize/reset value to 0
+		for(int j=0; j<n; j++) {
+			sum = *(matA+((i*m)+j)) + *(matB+((i*m)+j)) ;
+			printf("%d ", sum);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+void multMatrix(int *matA, int *matB, int m, int n, int c) {	//each row of matrix-1 * single col of matrix-2 = Sum of all row-col-mult elements = single element of Result_matrix
+	printf("Matrix Multiplication: \n");	
+	int sum;
+	for(int i=0; i<m; i++) {	// c is common
+		for(int j=0; j<n; j++) {
+			sum = 0;			
+			for(int k=0; k<c; k++) {
+				sum += *(matA+((i*m)+k)) * *(matB+((k*m)+j)); 
+			}
+			printf("%d ", sum);
+		}
+		printf("\n");
+	}
+	printf("\n");
+}
+
+void saddlePoint(int m, int n, int arr[][n]) {
+	int s[2][2];		//solution matrix 	stores location of min and max element
+	int max, min;
+	
+	int i,j,k,flag=0;
+	for(i=0; i<m; i++) {
+		min = arr[i][0];		//consider 1st element of each row as Min
+		for(j=0; j<n; j++) {		//traversing col side-side
+			if(min >= arr[i][j]) {
+				min = arr[i][j];
+				s[0][0] = i;
+				s[0][1] = j;			
+			}
+			
+		}
+		
+		j = s[0][1];		//reinitiating j value as same as that of Min_col
+		max = arr[0][j];	//consider 1st element of Min_Col as Max	
+		for(k=0; k<3; k++) {		//traversing row up-down
+			if(max <= arr[k][j]) {
+				max = arr[k][j];				
+				s[1][0] = k;
+				s[1][1] = j;
+			}
+		}
+		
+		if(min == max) {
+			if(s[0][0] == s[1][0] && s[0][1] == s[1][1]) {
+				printf("Saddle point found: %d\n", max);
+				flag=1;			
+				break;
+			}
+		}		
+		else {
+			flag = -1;
+		}
+	}
+
+	if(flag==-1) {
+		printf("No saddle point\n");		
+	}
+}
+
+
+
+
+
+
