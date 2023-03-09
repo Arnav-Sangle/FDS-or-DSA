@@ -1,3 +1,4 @@
+// Online C compiler to run C program online
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
@@ -35,6 +36,7 @@ int main() {
     }
     
     inorder(stack[top]);
+    nonInorder();
     
     return 0;
 }
@@ -69,5 +71,23 @@ void inorder(struct tree *root) {
         inorder(root->left);
         printf("%c", root->data);
         inorder(root->right);
+    }
+}
+
+void nonInorder(struct tree *curr;) {
+    struct tree *stack[20];
+    struct tree *temp = curr;
+    struct tree *pop = curr;
+    
+    while(temp == NULL && top!=-1) {
+        while(temp != NULL) {
+            push(temp);
+            temp=temp->left;
+        }
+        
+        printf(pop())
+        temp = pop()->right;
+        push(temp);
+        temp=temp->left;
     }
 }
