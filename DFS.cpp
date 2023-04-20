@@ -1,40 +1,61 @@
 #include <bits/stdc++.h>
-#define n 6
+using namespace std;
 
-int A[n][n];
-int visited[n];
+#define n 5
+int a[n][n], visited[n];
+int Stack[20];
+int top=-1; 
 
-void DFS(int v)
-{
+void DFS(int v);
+
+int main() {
+    int v;
+    cout << "Enter the matrix: ";
+    for(int i=0; i<n; i++) {
+        for(int j=0; j<n; j++) {
+            cin >> a[i][j];
+        }
+    }
+    
+    for(int i=0; i<n; i++) {
+        visited[i] = 0;
+    }
+    
+    cout << "Enter Source vertex: ";
+    cin >> v;
+    
+    cout << "DFS Traversal-" << endl;
+    DFS(v);
+    cout << endl;
+    
+    return 0;
+}
+
+void DFS(int v) {
     visited[v] = 1;
-    for(int i=0;i<n;i++)
-    {
-        if(A[v][i] == 1 && !visited[i])
-        {
-            printf("The edge is [%d - %d]\n", v, i);
+    cout << v << " ";
+    Stack[++top] = v;
+    
+    for(int i=0; i<n; i++) {
+        if(a[v][i]==1 && !visited[i]) {
             DFS(i);
         }
     }
+    
+    while(top!=-1) {
+        int e = Stack[top];
+        int f=0;
+        for(int i=0; i<n; i++) {
+            if(a[e][i]==1 && !visited[i]) {
+                DFS(i);
+                f=1;
+            }
+        }
+        
+        if(f==0) {
+            top--;
+        }
+    }
+    
 }
 
-void main()
-{
-    int v;
-    printf("Enter the matrix: \n");
-    for(int i=0;i<n;i++)
-    {
-        for(int j=0;j<n;j++)
-        {
-            scanf("%d", &A[i][j]);
-            
-        }
-        printf("\n");
-    }
-    for(int i=0;i<n;i++)
-    {
-        visited[i] = 0;
-    }
-    printf("Enter the vertex: ");
-    scanf("%d", &v);
-    DFS(v);
-}
