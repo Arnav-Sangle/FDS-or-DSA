@@ -20,7 +20,7 @@ int main() {
     
     heapSort(a,n);
     
-    cout<<"Sorted array is\n";
+    cout<<"Sorted array using Heap Sort is\n";
     for(int i=0; i<n; i++) {
         cout<<a[i]<<" ";
     }
