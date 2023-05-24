@@ -11,6 +11,13 @@ void heapSort(int a[], int n);
 int main() {
     int a[5]={5,4,3,2,1};
     int n = sizeof(a)/sizeof(a[0]);      //n=size
+
+    cout<<"Unsorted array is\n";
+    for(int i=0; i<n; i++) {
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+    
     heapSort(a,n);
     
     cout<<"Sorted array is\n";
