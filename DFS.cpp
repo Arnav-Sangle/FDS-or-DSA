@@ -59,3 +59,27 @@ void DFS(int v) {
     
 }
 
+void BFS(int s) {
+    visited[s]=1;
+    Queue[++rear]=s;
+    
+    while(front<=rear){
+
+        int v = Queue[front];
+        for(int i=0; i<n; i++) {
+            if(graph[v][i]==1 && !visited[i]) {
+                Queue[++rear]=i;
+                visited[i]=1;
+            }
+        }
+        
+        cout<<v<<"\n";
+        // for(int i=0; i<n; i++) {
+        //     cout<<Queue[i]<<" ";
+        // }
+        cout<<endl;
+        front++;
+
+    }
+    
+}
