@@ -1,19 +1,33 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
 
 #define n 5
-int a[n][n], visited[n];
+
+// 0 1 1 1 0
+// 1 0 1 0 0
+// 1 1 0 0 1
+// 1 0 0 0 0
+// 0 0 1 0 0
+
+int graph[n][n];
+int visited[n];
+
 int Stack[20];
-int top=-1; 
+int top=0;
+
+int Queue[20];
+int front=0;
+int rear=-1;
 
 void DFS(int v);
+void BFS(int v);
 
 int main() {
-    int v;
-    cout << "Enter the matrix: ";
+    
+    cout<<"Enter the "<<n<<"x"<<n<<" matrix: "<<endl;
     for(int i=0; i<n; i++) {
         for(int j=0; j<n; j++) {
-            cin >> a[i][j];
+            cin>>graph[i][j];
         }
     }
     
@@ -21,51 +35,70 @@ int main() {
         visited[i] = 0;
     }
     
-    cout << "Enter Source vertex: ";
-    cin >> v;
+    int v;
+    cout<<"Enter the Source vertex: ";
+    cin>>v;
     
-    cout << "DFS Traversal-" << endl;
+    cout<<"DFS Traversal: "<<endl;
     DFS(v);
-    cout << endl;
+    cout<<endl;
+    
+    
+    for(int i=0; i<n; i++) {
+        visited[i] = 0;
+    }
+    
+    cout<<"Enter the Source vertex: ";
+    cin>>v;
+    
+    cout<<"BFS Traversal: "<<endl;
+    BFS(v);
+    cout<<endl;
     
     return 0;
 }
 
-void DFS(int v) {
-    visited[v] = 1;
-    cout << v << " ";
-    Stack[++top] = v;
+
+
+//if you reffering programiz, then their order is different 
+//  coz they input in stack as 3,2,1 so 1 is their stack top
+void DFS(int s) {   //LIFO, print during pop    
+    visited[s] = 1;
+    cout<<s<<" ";
     
     for(int i=0; i<n; i++) {
-        if(a[v][i]==1 && !visited[i]) {
-            DFS(i);
+        if(graph[s][i]==1 && !visited[i]) {
+            Stack[++top]=i;
+            visited[i] = 1;
         }
     }
     
-    while(top!=-1) {
-        int e = Stack[top];
-        int f=0;
+    while(top>0) {
+        
+        int v = Stack[top];
+        cout<<v<<" ";
+        top--;
+        
         for(int i=0; i<n; i++) {
-            if(a[e][i]==1 && !visited[i]) {
-                DFS(i);
-                f=1;
+            if(graph[v][i]==1 && !visited[i]) {
+                Stack[++top]=i;
+                visited[i] = 1;
             }
         }
         
-        if(f==0) {
-            top--;
-        }
     }
     
 }
 
-void BFS(int s) {
+
+
+void BFS(int s) {   //FIFO, print during pop 
     visited[s]=1;
     Queue[++rear]=s;
     
     while(front<=rear){
-
         int v = Queue[front];
+        
         for(int i=0; i<n; i++) {
             if(graph[v][i]==1 && !visited[i]) {
                 Queue[++rear]=i;
@@ -73,13 +106,10 @@ void BFS(int s) {
             }
         }
         
-        cout<<v<<"\n";
-        // for(int i=0; i<n; i++) {
-        //     cout<<Queue[i]<<" ";
-        // }
-        cout<<endl;
+        cout<<v<<" ";
         front++;
 
     }
     
 }
+
