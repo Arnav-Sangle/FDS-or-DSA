@@ -63,13 +63,14 @@ int main() {
 int bellmanFord(int s, int graph[][n], int distance[]) {
 
     for(int k=0; k<n-1; k++) {  //n-1 iterations
-        for(int i=0; i<n-1; i++) {  //relaxing for all vertices
+        for(int i=0; i<n; i++) {  //relaxing for all vertices
             relax(i, graph, distance);
             // for(int i=0; i<n; i++) {
             //     cout<<distance[i]<<" ";
             // }
             // cout<<endl;
         }
+        // cout<<endl;
     }
 
     //copying distance vector of 'n-1'th iteration
@@ -79,7 +80,7 @@ int bellmanFord(int s, int graph[][n], int distance[]) {
     }
     
     //after 'n'th iteration, if distance vector is not the same, then -ve cycle exists
-    for(int i=0; i<n-1; i++) {
+    for(int i=0; i<n; i++) {
         relax(i, graph, distance);
     }
     
@@ -108,5 +109,18 @@ void relax(int u, int graph[][n], int distance[]) {
     }
 }
 
+
+//No Negative cycle
+// {INF, 5, -1, INF, INF},
+// {INF, INF, INF, -3, INF},
+// {INF, -2, INF, 6, 3},
+// {INF, INF, INF, INF, 2},
+// {INF, INF, INF, INF, INF}
+
+//With Negative cycle
+// {INF, -5, INF, INF},
+// {INF, INF, 1, INF},
+// {INF, INF, INF, 4},
+// {-7, INF, INF, INF}
 
 
