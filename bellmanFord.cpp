@@ -62,8 +62,8 @@ int main() {
 
 int bellmanFord(int s, int graph[][n], int distance[]) {
 
-    for(int k=0; k<n-1; k++) {
-        for(int i=0; i<n-1; i++) {
+    for(int k=0; k<n-1; k++) {  //n-1 iterations
+        for(int i=0; i<n-1; i++) {  //relaxing for all vertices
             relax(i, graph, distance);
             // for(int i=0; i<n; i++) {
             //     cout<<distance[i]<<" ";
@@ -99,7 +99,7 @@ int bellmanFord(int s, int graph[][n], int distance[]) {
 
 void relax(int u, int graph[][n], int distance[]) {
     int v;
-    for(int i=0; i<n; i++) {
+    for(int i=0; i<n; i++) {    //relax single node, for all its adjacent nodes
         v=i;
         
         if(graph[u][v]!=INF && distance[v]>distance[u]+graph[u][v]) {
